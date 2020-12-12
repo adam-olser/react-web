@@ -8,25 +8,24 @@ import styled from "styled-components";
 const OurWork = () => {
   return(
       <Work>
-        <h2>Our Work</h2>
         <Movie>
           <h2>The Athlete</h2>
           <div className="line"/>
-          <Link>
+          <Link to="/work/the-athlete">
             <img src={athlete} alt="athlete"/>
           </Link>
         </Movie>
         <Movie>
           <h2>The Racer</h2>
           <div className="line"/>
-          <Link>
+          <Link to="/work/the-racer">
             <img src={theracer} alt="theracer"/>
           </Link>
         </Movie>
         <Movie>
           <h2>Good Times</h2>
           <div className="line"/>
-          <Link>
+          <Link to="/work/good-times">
             <img src={goodtimes} alt="goodtimes"/>
           </Link>
         </Movie>
@@ -44,6 +43,11 @@ const Work = styled.div`
 `
 const Movie = styled.div`
   padding-bottom: 10rem;
+  h2{
+    color: white;
+    justify-content: center;
+    align-items: center;
+  }
   .line{
     height: 0.5rem;
     background: #cccccc;
