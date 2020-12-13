@@ -1,7 +1,10 @@
 import styled from "styled-components";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { MovieState } from "../movieState";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { pageAnimation } from "../animation";
+import ScrollToTop from "../components/ScrollToTop";
 
 const MovieDetail = () => {
   const history = useHistory();
@@ -17,31 +20,37 @@ const MovieDetail = () => {
     console.log(setMovies);
   }, [movies, url]);
 
-  return(
-      <Details>
-        <HeadLine>
-          <h2>{movie?.title}</h2>
-          <img src={movie?.mainImg} alt="movie"/>
-        </HeadLine>
-        <Awards>
-          {movie.awards?.map((award) => (
-              <Award
-                  title={award.title}
-                  description={award.description}
-                  key={award.title}
-              />
-              ))}
-        </Awards>
-        <ImageDisplay>
-          <img src={movie.secondaryImg} alt="movie"/>
-        </ImageDisplay>
-      </Details>
-  )
-}
+  return (
+    <Details
+      variants={pageAnimation}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
+      <ScrollToTop />
+      <HeadLine>
+        <h2>{movie?.title}</h2>
+        <img src={movie?.mainImg} alt="movie" />
+      </HeadLine>
+      <Awards>
+        {movie?.awards?.map((award) => (
+          <Award
+            title={award.title}
+            description={award.description}
+            key={award.title}
+          />
+        ))}
+      </Awards>
+      <ImageDisplay>
+        <img src={movie?.secondaryImg} alt="movie" />
+      </ImageDisplay>
+    </Details>
+  );
+};
 
-const Details = styled.div`
+const Details = styled(motion.div)`
   color: white;
-`
+`;
 const HeadLine = styled.div`
   min-height: 90vh;
   padding-top: 20vh;
@@ -71,39 +80,39 @@ const Awards = styled.div`
   }
 `;
 
-const Award = ({title,description}) => {
-  return(
-      <AwardStyle>
-        <h3>{title}</h3>
-        <div className="line"/>
-        <p>{description}</p>
-      </AwardStyle>
-  )
-}
+const Award = ({ title, description }) => {
+  return (
+    <AwardStyle>
+      <h3>{title}</h3>
+      <div className="line" />
+      <p>{description}</p>
+    </AwardStyle>
+  );
+};
 
 const ImageDisplay = styled.div`
   min-height: 50vh;
-  img{
+  img {
     width: 100%;
     height: 100vh;
     object-fit: cover;
   }
-`
+`;
 
 const AwardStyle = styled.div`
-padding: 5rem;
-  h3{
+  padding: 5rem;
+  h3 {
     font-size: 2rem;
   }
-  .line{
+  .line {
     width: 100%;
     background: #23d997;
     height: 0.5rem;
     margin: 1rem 0rem;
   }
-  p{
+  p {
     padding: 2rem 0rem;
   }
-`
+`;
 
-export default MovieDetail
+export default MovieDetail;
